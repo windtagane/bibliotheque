@@ -12,8 +12,21 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
-// connection base de donnée
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.resolve(__dirname, 'public')));
 
+app.post('/ajout', function (req,res){
+  var livre = new livre (req.body);
+ livre.save()
+ .then(item => {
+ res.send("item saved to database");
+ })
+ .catch(err => {
+ res.status(400).send("unable to save to database");
+ });
+})
+
+// connection base de donnée
 mongoose.connect('mongodb://localhost:27017/bibliotheque', {
   useNewUrlParser: true
 });
@@ -73,5 +86,9 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(3000, function () {
+  console.log('Example app listening on port 3000!')
+})
 
 module.exports = app;
