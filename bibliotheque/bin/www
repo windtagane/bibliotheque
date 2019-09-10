@@ -7,6 +7,8 @@
 var app = require('../app');
 var debug = require('debug')('bibliotheque:server');
 var http = require('http');
+var MongoClient= require('mongodb').MongoClient;
+
 
 /**
  * Get port from environment and store in Express.
@@ -14,6 +16,19 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+/**
+ * Database
+ */
+
+var url = "mongodb://localhost:27017/bibliotheque";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  console.log("Database created!");
+  db.close();
+});
+
 
 /**
  * Create HTTP server.
