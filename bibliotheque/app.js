@@ -4,8 +4,6 @@ let path = require('path');
 let mongoose = require('mongoose');
 let ejs = require('ejs');
 
-
-
 let app = express();
 
 app.set('views', path.join(__dirname, 'views'));
