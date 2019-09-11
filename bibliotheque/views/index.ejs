@@ -16,6 +16,14 @@
             </tr>
         </thead>
         <tbody>
+        <% if (livre) {%>
+            <% for(let i = 0; i < livre.length; i++) { %>
+            <tr>
+                <td><%= livre[i].titre %></td>
+                <td><%= livre[i].date_parution %></td>
+            </tr>
+            <% } %>
+        <% } %>
 
         </tbody>
         

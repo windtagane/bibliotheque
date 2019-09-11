@@ -1,6 +1,13 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
+let livreSchema = new Schema({
+    titre:  String,
+    date_parution: Date
+});
+
+const Livre = mongoose.model('Livre', livreSchema);
+
 let dbUrl = 'mongodb://localhost:27017/bibliotheque';
 const db = mongoose.connection;
 
@@ -15,13 +22,6 @@ controller.list = (req,res) => {
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
     console.log("Controller LIST");
-    
-    let livreSchema = new Schema({
-        titre:  String,
-        date_parution: Date
-    });
- 
-    let Livre = mongoose.model('Livre', livreSchema);
 
     Livre.find(function(err, livres) {   
         if (err) throw err;
@@ -41,13 +41,6 @@ controller.save = (req, res) => {
     db.on('error', console.error.bind(console, 'connection error:'));
     db.once('open', function() {
             
-            let livreSchema = new Schema({
-                titre:  String,
-                date_parution: Date
-            });
-            
-            let Livre = mongoose.model('Livre', livreSchema);
-            
             let livreAjout = new Livre({
                 titre: req.body.titre,
                 date_parution: req.body.date
@@ -59,7 +52,7 @@ controller.save = (req, res) => {
             })
             
         });
-        res.render('index');
+        res.redirect('/');
     };
 
 
