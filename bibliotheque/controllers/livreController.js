@@ -20,7 +20,7 @@ controller.list = (req,res) => {
     });
     
     db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
+    db.once('open', function() { 
     console.log("Controller LIST");
 
     Livre.find(function(err, livres) {   
@@ -45,7 +45,9 @@ controller.save = (req, res) => {
                 titre: req.body.titre,
                 date_parution: req.body.date
             })
-            
+            if (livreAjout.lenght == 0) {
+
+            }
             livreAjout.save((err) => {
                 if (err) throw err;
                 console.log('Livre Ajouté');
